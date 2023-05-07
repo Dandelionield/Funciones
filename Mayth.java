@@ -99,7 +99,7 @@ public class Mayth{
 				
 			}
 			
-			if (parts[0]!=0){
+			if (parts[0]!=0 && base!=1){
 			
 				if (base!=-1){
 			
@@ -144,16 +144,24 @@ public class Mayth{
 			x*=-1;
 			
 		}
-
-		for (int n=0; n<=170; n++){
-			
-			Tylore+= Potencia(x,n) / Factorial(n);
-			
-		}
 		
-		if (signo==-1){
+		if (x<=65){
+		
+			for (int n=0; n<=170; n++){
+				
+				Tylore+= Potencia(x,n) / Factorial(n);
+				
+			}
 			
-			Tylore=1/Tylore;
+			if (signo==-1){
+				
+				Tylore=1/Tylore;
+				
+			}
+			
+		}else{
+			
+			Tylore = Double.POSITIVE_INFINITY;
 			
 		}
 		
@@ -163,7 +171,7 @@ public class Mayth{
 	
 	public  static double TaylorPi(double x){//Se usa la serie Taylor para Pi^x
 		
-		double Tylore=0,lnpi=1.14472988585;
+		double Tylore=0,lnpi=1.14472988584940017;
 		int signo=1;
 		
 		if (x<0){
@@ -189,7 +197,7 @@ public class Mayth{
 		
 	}
 	
-	public static double TaylorEulerMascheroni(double x){//Se usa la serie Tylor para Gamma^x
+	public static double TaylorEulerMascheroni(double x){//Se usa la serie Taylor para Gamma^x
 		
 		double Tylore=0,lngamma=-0.54953931298165;	
 		int signo=1;
