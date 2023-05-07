@@ -3,7 +3,7 @@ import java.math.RoundingMode;
 
 public class Mayth{
 	
-	public  static double Raiz(double x, double n){//35ta
+	public  static double Raiz(double x, double n){
 		
 		double producto=0;
 		int signo=1;
@@ -133,7 +133,7 @@ public class Mayth{
 		
 	}
 	
-	public  static double TaylorEuler(double x){//Se usa la serie Tylor para e^x
+	public  static double TaylorEuler(double x){//Se usa la serie Taylor para e^x
 		
 		double Tylore=0;
 		int signo=1;
@@ -161,7 +161,7 @@ public class Mayth{
 		
 	}
 	
-	public  static double TaylorPi(double x){//Se usa la serie Tylor para Pi^x
+	public  static double TaylorPi(double x){//Se usa la serie Taylor para Pi^x
 		
 		double Tylore=0,lnpi=1.14472988585;
 		int signo=1;
@@ -188,8 +188,36 @@ public class Mayth{
 		return Tylore;
 		
 	}
+	
+	public static double TaylorEulerMascheroni(double x){//Se usa la serie Tylor para Gamma^x
+		
+		double Tylore=0,lngamma=-0.54953931298165;	
+		int signo=1;
+		
+		if (x<0){
+			
+			signo*=-1;
+			x*=-1;
+			
+		}
 
-	public static double TaylorLn(double x){//Se usa la serie Tylor para el ln(x)
+		for (int n=0; n<=170; n++){
+			
+			Tylore+= (Potencia(lngamma,n) / Factorial(n)) * Potencia(x,n);
+			
+		}
+		
+		if (signo==-1){
+			
+			Tylore=1/Tylore;
+			
+		}
+		
+		return Tylore;
+		
+	}
+
+	public static double TaylorLn(double x){//Se usa la serie Taylor para el ln(x)
 		
 		double ln=0;
 		boolean b = false;
@@ -399,6 +427,26 @@ public class Mayth{
 		
 	}
 	
+	public static double Gamma(){
+	
+		return TaylorEulerMascheroni(1);
+		
+	}
+	
+	public static double Uno(){
+		
+		double uno = 0;
+		
+		for (int n=1; n<=1000; n++){
+			
+			uno +=  Euler() / (Euler() * Potencia(2,n));
+			
+		}
+		
+		return uno;
+		
+	}
+	
 /*----------------------------------------------------------------------------------------------------------------*/	
 	
 	public static double Factorial(int x){
@@ -602,6 +650,8 @@ public class Mayth{
 		
 		if (indice!=0 && indice>0){
 			
+			//Bn = ((Potencia(-1,indice+1) * 2 * Factorial(2*indice))/Potencia(2*Pi(),2*indice)) * ZetaReimann(2*indice);
+			
 			for (int n=0; n<=indice; n++){
 				
 				Bn += Potencia(-1,n) * nWorpitzky(indice,n)/(n+1);
@@ -625,6 +675,20 @@ public class Mayth{
 		}
 		
 		return W;
+		
+	}
+	
+	public static double ZetaReimann(int s){
+		
+		double zeta=0;
+		
+		for (int n=1; n<=1000; n++){
+			
+			zeta += 1d/Potencia(n,s);
+			
+		}
+		
+		return zeta;
 		
 	}
 	
@@ -721,7 +785,7 @@ public class Mayth{
 		
 	}
 	
-	public static String IgnoreTilde(String ac){//10ma
+	public static String IgnoreTilde(String ac){
 		
 		String[][] cases = {{"a","e","i","o","u"},{"á","é","í","ó","ú"},{"ü"}};
 		String nw="";
