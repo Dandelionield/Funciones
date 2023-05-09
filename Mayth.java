@@ -457,29 +457,59 @@ public class Mayth{
 	
 /*----------------------------------------------------------------------------------------------------------------*/	
 	
-	public static double Factorial(int x){
+	public static double Factorial(float n){
 		
 		double producto=1;
 
-		if (x>0){
+		if (n>0 && n%1==0){
 
-			for (int i=1; i<=x; i++){
+			for (int i=1; i<=n; i++){
 
 				producto = producto*i;
 				
 			}
 			
-		}else if (x<0){
-
-			producto = Double.NaN;
+		}else if (n%1!=0 && n!=0){
 			
-		}else if (x==0){
+			producto = GammaEuler(n);
+			
+		}else if (n==0){
 
 			producto = 1;
+			
+		}else{
+			
+			producto = Double.NaN;
 			
 		}
 		
 		return producto;
+		
+	}
+	
+	public static double GammaEuler(float z){
+		
+		double p = 0.99999999999980993;
+		double t = 0;
+		
+		p += 676.5203681218851 / (z + 1);
+		p -= 1259.1392167224028 / (z + 2);
+		p += 771.32342877765313 / (z + 3);
+		p -= 176.61502916214059 / (z + 4);
+		p += 12.507343278686905 / (z + 5);
+		p -= 0.13857109526572012 / (z + 6);
+		p += 9.9843695780195716e-6 / (z + 7);
+		p += 1.5056327351493116e-7 / (z + 8);
+		
+        t = z + 7.5;
+		
+		return Raiz(2 * Pi(), 2) * Potencia(t, z + 0.5f) * TaylorEuler(-t) * p;
+		
+	}
+	
+	public static double Combinacion(float n, float k){
+		
+		return Factorial(n) / (Factorial(k)*Factorial(n-k));
 		
 	}
 	
@@ -492,12 +522,6 @@ public class Mayth{
 		bh[1]=(-1*b-Raiz(Potencia(b,2)-4*a*c,2))/(2*a);
 		
 		return bh;
-		
-	}
-	
-	public static double Combinacion(int n, int k){
-		
-		return Factorial(n) / (Factorial(k)*Factorial(n-k));
 		
 	}
 	
@@ -652,7 +676,7 @@ public class Mayth{
 		
 	}
 	
-	public static double nBernoulli(int indice){
+	public static double nBernoulli(float indice){
 		
 		double Bn=0;
 		
@@ -666,13 +690,13 @@ public class Mayth{
 				
 			}
 			
-		}else{Bn=1;}
+		}else if (indice==0){Bn=1;}else {Bn = Double.NaN;}
 		
 		return Bn;
 		
 	}
 	
-	public static double nWorpitzky(int n, int k){
+	public static double nWorpitzky(float n, int k){
 		
 		double W=0;
 		
@@ -686,7 +710,7 @@ public class Mayth{
 		
 	}
 	
-	public static double ZetaReimann(int s){
+	public static double ZetaReimann(float s){
 		
 		double zeta=0;
 		
